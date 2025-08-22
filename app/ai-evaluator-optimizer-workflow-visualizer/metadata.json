@@ -1,0 +1,5 @@
+{
+  "name": "AI Evaluator-Optimizer Workflow Visualizer",
+  "description": "A web application that visualizes a sophisticated AI workflow using generator, evaluator, and optimizer agents to iteratively refine content based on user queries and dynamic evaluation criteria.",
+  "requestFramePermissions": []
+}

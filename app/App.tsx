@@ -133,13 +133,13 @@ const App: React.FC = () => {
         // Trigger synthesis after execution
         setLoading((prev: LoadingStates) => ({ ...prev, synthesizing: true }));
 
-    }, [taskPlan, userQuery]);
+    }, [taskPlan, userQuery, subtaskResults]);
 
     useEffect(() => {
         if (taskPlan && !loading.planning && !isWorkflowRunning) {
             executeSubtasks();
         }
-    }, [taskPlan, executeSubtasks]);
+    }, [taskPlan, executeSubtasks, loading.planning, isWorkflowRunning]);
     
 
     const synthesizeFinalResponse = useCallback(async () => {
@@ -179,7 +179,7 @@ const App: React.FC = () => {
         if (allCompleted && loading.synthesizing) {
             synthesizeFinalResponse();
         }
-    }, [subtaskResults, loading.synthesizing, synthesizeFinalResponse]);
+    }, [subtaskResults, loading.synthesizing, synthesizeFinalResponse, taskPlan]);
 
 
     return (
