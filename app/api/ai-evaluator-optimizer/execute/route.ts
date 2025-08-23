@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { GoogleGenAI, Type } from '@google/genai';
-import type { AgentResponse, CriteriaData, EvaluationData } from '../../../../../agents/app/ai-evaluator-optimizer-workflow-visualizer/types';
+import type { AgentResponse, CriteriaData, EvaluationData } from '../../../ai-evaluator-optimizer-workflow-visualizer/types';
 
 const getAi = () => {
   const apiKey = process.env.API_KEY;
