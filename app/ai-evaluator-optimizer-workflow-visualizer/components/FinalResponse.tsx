@@ -1,5 +1,6 @@
 
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { CheckCircleIcon } from './Icons';
 
 interface FinalResponseProps {
@@ -7,9 +8,7 @@ interface FinalResponseProps {
 }
 
 const FinalResponse: React.FC<FinalResponseProps> = ({ response }) => {
-  const formattedResponse = response.split('\n').map((paragraph, index) => (
-    <p key={index} className="mb-4 last:mb-0">{paragraph}</p>
-  ));
+  const formattedResponse = <ReactMarkdown>{response}</ReactMarkdown>;
 
   return (
     <div className="bg-gray-800/50 rounded-lg p-6 border border-green-700 animate-fade-in">

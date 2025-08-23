@@ -1,5 +1,6 @@
 
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { Subtask, SubtaskStatus } from '../types';
 import CheckCircleIcon from '../components/icons/CheckCircleIcon';
 import CircleDotIcon from '../components/icons/CircleDotIcon';
@@ -60,7 +61,9 @@ const SubtaskCard: React.FC<SubtaskCardProps> = ({ subtask, status, result }) =>
             {status === SubtaskStatus.COMPLETED && result && (
                 <div className="mt-4 pt-3 border-t border-gray-700/50">
                     <p className="text-xs font-bold text-gray-300 mb-1">Result:</p>
-                    <p className="text-sm text-gray-200 bg-black/20 p-2 rounded-md whitespace-pre-wrap">{result}</p>
+                    <div className="prose prose-invert prose-sm max-w-none bg-black/20 p-2 rounded-md">
+                        <ReactMarkdown>{result}</ReactMarkdown>
+                    </div>
                 </div>
             )}
         </div>
