@@ -6,6 +6,7 @@ import type { TaskPlan } from '../../../types';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const apiKey = req.headers.get('x-gemini-key') || undefined;
     const { userQuery, taskPlan, subtaskResults } = body as {
       userQuery: string;
       taskPlan: TaskPlan;
@@ -14,7 +15,7 @@ export async function POST(req: NextRequest) {
     if (!userQuery || !taskPlan || !subtaskResults) {
       return new NextResponse('Missing required fields', { status: 400 });
     }
-    const result = await synthesizeResults(userQuery, taskPlan, subtaskResults);
+    const result = await synthesizeResults(userQuery, taskPlan, subtaskResults, apiKey);
     return NextResponse.json({ result });
   } catch (err: unknown) {
     const message = (err as Error).message || 'Failed to synthesize results';

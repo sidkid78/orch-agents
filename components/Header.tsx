@@ -13,8 +13,17 @@ const Header: React.FC = () => {
                         <p className="text-sm text-gray-400">Visualize complex task decomposition and synthesis by AI agents.</p>
                     </div>
                 </div>
-                <nav className="text-sm">
+                <nav className="text-sm flex items-center gap-4">
                     <a href="/ai-evaluator-optimizer-workflow-visualizer" className="text-cyan-400 hover:text-cyan-300">Evaluator/Optimizer Demo →</a>
+                    <label className="text-gray-400">
+                        Gemini API Key:
+                        <input
+                            type="password"
+                            placeholder="paste key"
+                            className="ml-2 bg-gray-800 border border-gray-700 rounded px-2 py-1 text-gray-200 focus:outline-none focus:ring-2 focus:ring-cyan-600"
+                            onChange={(e) => localStorage.setItem('gemini_api_key', e.target.value)}
+                        />
+                    </label>
                 </nav>
             </div>
         </header>

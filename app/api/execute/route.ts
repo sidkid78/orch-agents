@@ -6,6 +6,7 @@ import type { Subtask } from '../../../types';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const apiKey = req.headers.get('x-gemini-key') || undefined;
     const { userQuery, taskUnderstanding, subtask, dependencyResults } = body as {
       userQuery: string;
       taskUnderstanding: string;
@@ -15,7 +16,7 @@ export async function POST(req: NextRequest) {
     if (!userQuery || !taskUnderstanding || !subtask) {
       return new NextResponse('Missing required fields', { status: 400 });
     }
-    const result = await executeSubtask(userQuery, taskUnderstanding, subtask, dependencyResults || {});
+    const result = await executeSubtask(userQuery, taskUnderstanding, subtask, dependencyResults || {}, apiKey);
     return NextResponse.json({ result });
   } catch (err: unknown) {
     const message = (err as Error).message || 'Failed to execute subtask';

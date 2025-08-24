@@ -35,7 +35,7 @@ const App: React.FC = () => {
         try {
             const planRes = await fetch('/api/plan', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'x-gemini-key': localStorage.getItem('gemini_api_key') || '' },
                 body: JSON.stringify({ query })
             });
             if (!planRes.ok) {
@@ -91,7 +91,7 @@ const App: React.FC = () => {
             const taskPromises = executableTasks.map((task: Subtask) =>
                 fetch('/api/execute', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'x-gemini-key': localStorage.getItem('gemini_api_key') || '' },
                     body: JSON.stringify({
                         userQuery,
                         taskUnderstanding: taskPlan.task_understanding,
@@ -155,7 +155,7 @@ const App: React.FC = () => {
         try {
             const res = await fetch('/api/synthesize', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'x-gemini-key': localStorage.getItem('gemini_api_key') || '' },
                 body: JSON.stringify({ userQuery, taskPlan, subtaskResults: resultsForSynthesis })
             });
             if (!res.ok) {

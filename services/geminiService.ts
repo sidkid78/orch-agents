@@ -2,8 +2,8 @@ import 'server-only';
 import { GoogleGenAI, Type, GenerateContentResponse } from "@google/genai";
 import { TaskPlan, Subtask } from '../types';
 
-const getAi = (): GoogleGenAI => {
-    const apiKey = process.env.API_KEY;
+const getAi = (apiKeyOverride?: string): GoogleGenAI => {
+    const apiKey = apiKeyOverride || process.env.API_KEY;
     if (!apiKey) {
         throw new Error("API_KEY environment variable not set");
     }
@@ -63,14 +63,14 @@ const taskPlanSchema = {
 };
 
 
-export const generateTaskPlan = async (userQuery: string): Promise<TaskPlan> => {
+export const generateTaskPlan = async (userQuery: string, apiKeyOverride?: string): Promise<TaskPlan> => {
     const prompt = `You are a world-class AI orchestrator. Your job is to analyze a complex user query and break it down into a structured plan of subtasks. Other specialized AI agents will execute these subtasks.
 
     User Query: "${userQuery}"
 
     Create a detailed plan by defining the overall task understanding, a list of subtasks with their dependencies and required expertise, and an overall execution strategy. Ensure subtask IDs are unique and dependencies are correctly referenced. For the 'required_expertise' field, suggest a specific role for an AI agent.`;
 
-    const response = await getAi().models.generateContent({
+    const response = await getAi(apiKeyOverride).models.generateContent({
         model: "gemini-2.5-flash",
         contents: prompt,
         config: {
@@ -94,7 +94,8 @@ export const executeSubtask = async (
     userQuery: string,
     taskUnderstanding: string,
     subtask: Subtask,
-    dependencyResults: Record<string, string>
+    dependencyResults: Record<string, string>,
+    apiKeyOverride?: string
 ): Promise<string> => {
     let dependencyContext = "";
     if (subtask.dependencies.length > 0) {
@@ -116,7 +117,7 @@ export const executeSubtask = async (
     
     Execute this subtask now. Provide a concise but complete response that directly fulfills the subtask description. Focus ONLY on your assigned subtask.`;
 
-    const response: GenerateContentResponse = await getAi().models.generateContent({
+    const response: GenerateContentResponse = await getAi(apiKeyOverride).models.generateContent({
         model: "gemini-2.5-flash",
         contents: prompt,
         config: {
@@ -130,7 +131,8 @@ export const executeSubtask = async (
 export const synthesizeResults = async (
     userQuery: string,
     taskPlan: TaskPlan,
-    subtaskResults: Record<string, string>
+    subtaskResults: Record<string, string>,
+    apiKeyOverride?: string
 ): Promise<string> => {
     
     const formattedResults = taskPlan.subtasks.map((st: Subtask) => 
@@ -147,7 +149,7 @@ export const synthesizeResults = async (
 
     Synthesize these results into a final, well-structured, and easy-to-read response. Address the user's original query directly. Do not just list the results; integrate them intelligently.`;
 
-    const response: GenerateContentResponse = await getAi().models.generateContent({
+    const response: GenerateContentResponse = await getAi(apiKeyOverride).models.generateContent({
         model: "gemini-2.5-flash",
         contents: prompt,
         config: {
