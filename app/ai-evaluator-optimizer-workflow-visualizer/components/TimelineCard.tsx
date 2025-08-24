@@ -1,5 +1,6 @@
 
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { AgentResponse, EvaluationData } from '../types';
 import { BrainCircuitIcon, EditIcon, LightbulbIcon, SearchCheckIcon } from './Icons';
 import EvaluationCard from './EvaluationCard';
@@ -55,8 +56,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ step, isLast }) => {
         {isEvaluation ? (
           <EvaluationCard metadata={step.metadata as unknown as EvaluationData} />
         ) : (
-          <div className="mt-2 text-sm text-gray-300 whitespace-pre-wrap font-mono">
-            {step.content}
+          <div className="mt-2 text-sm text-gray-300 font-mono prose prose-invert prose-sm max-w-none">
+            <ReactMarkdown>{step.content}</ReactMarkdown>
           </div>
         )}
       </div>

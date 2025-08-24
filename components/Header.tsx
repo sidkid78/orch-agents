@@ -15,6 +15,7 @@ const Header: React.FC = () => {
                 </div>
                 <nav className="text-sm flex items-center gap-4">
                     <a href="/ai-evaluator-optimizer-workflow-visualizer" className="text-cyan-400 hover:text-cyan-300">Evaluator/Optimizer Demo →</a>
+                    <a href="/parallel-task-workflow-visualizer" className="text-cyan-400 hover:text-cyan-300">Parallel Workflow Demo →</a>
                     <label className="text-gray-400">
                         Gemini API Key:
                         <input

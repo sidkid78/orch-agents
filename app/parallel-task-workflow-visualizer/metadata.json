@@ -1,0 +1,5 @@
+{
+  "name": "Parallel Task Workflow Visualizer",
+  "description": "A web application that visualizes a multi-agent workflow for breaking down a complex task into parallel subtasks and aggregating the results, powered by the Gemini API.",
+  "requestFramePermissions": []
+}

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import Spinner from './Spinner';
 import ClipboardCheckIcon from '../components/icons/ClipboardCheckIcon';
 
@@ -33,8 +34,8 @@ const SynthesizerView: React.FC<SynthesizerViewProps> = ({ finalResponse, isLoad
                     <p className="text-gray-400 text-sm">The complete answer, integrated from all subtask results.</p>
                 </div>
             </div>
-            <div className="prose prose-invert prose-sm sm:prose-base max-w-none bg-black/20 p-4 rounded-md whitespace-pre-wrap">
-                {finalResponse}
+            <div className="prose prose-invert prose-sm sm:prose-base max-w-none bg-black/20 p-4 rounded-md">
+                <ReactMarkdown>{finalResponse}</ReactMarkdown>
             </div>
         </div>
     );
